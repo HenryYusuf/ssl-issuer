@@ -207,12 +207,12 @@ const copyToClipboard = async (text) => {
     toast.add({
       title: 'Copied!',
       description: 'Copied to clipboard.',
-      color: 'green'
+      color: 'success'
     })
   } catch (err) {
     toast.add({
       title: 'Failed to copy',
-      color: 'red'
+      color: 'error'
     })
   }
 }
@@ -226,6 +226,17 @@ const requestIssue = async () => {
       body: { domain: domain.value }
     })
     
+    if (data.already_verified) {
+      toast.add({
+        title: 'Already Verified',
+        description: 'Domain is already verified. Fetching certificates...',
+        color: 'success'
+      })
+      // Automatically proceed to verification/fetching certs
+      await verifyChallenge()
+      return
+    }
+
     challengeData.value = {
       challenge_domain: data.challenge_domain,
       txt_value: data.txt_value
@@ -235,7 +246,7 @@ const requestIssue = async () => {
     toast.add({
       title: 'Error',
       description: err.response?.data?.statusMessage || 'An error occurred during issuance.',
-      color: 'red'
+      color: 'error'
     })
   } finally {
     loading.value = false
@@ -261,7 +272,7 @@ const verifyChallenge = async () => {
     toast.add({
       title: 'Verification Failed',
       description: err.response?.data?.statusMessage || 'Failed to verify DNS challenge. Ensure propagation has reached Let\'s Encrypt.',
-      color: 'red'
+      color: 'error'
     })
   } finally {
     loading.value = false

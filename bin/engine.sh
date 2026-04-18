@@ -23,8 +23,10 @@ SERVER_ARG="--server letsencrypt"
 
 if [ "$COMMAND" = "issue" ]; then
   # run acme.sh manually
+  # Added --force to allow re-issuing even if a valid cert exists locally.
   $ACME_BIN --home "$STORAGE_DIR" --issue -d "$DOMAIN" --dns \
     --yes-I-know-dns-manual-mode-enough-go-ahead-please \
+    --force \
     $SERVER_ARG > "$LOG_FILE" 2>&1
   
   # Extract DNS record info
@@ -33,6 +35,9 @@ if [ "$COMMAND" = "issue" ]; then
 
   if [ -n "$DNS_DOMAIN" ] && [ -n "$TXT_VALUE" ]; then
     echo "{\"success\": true, \"challenge_domain\": \"$DNS_DOMAIN\", \"txt_value\": \"$TXT_VALUE\"}"
+  elif grep -q "already verified" "$LOG_FILE" || grep -q "Cert success" "$LOG_FILE" || grep -q "Success" "$LOG_FILE"; then
+    # If already verified or successfully issued (e.g. from cache), we can skip DNS setup.
+    echo "{\"success\": true, \"already_verified\": true}"
   else
     # Error getting challenge
     ERROR_MSG=$(tail -n 15 "$LOG_FILE" | tr '\n' ' ' | sed 's/"/\\"/g' | sed 's/\\/\\\\/g' | tr -d '\r')
@@ -45,10 +50,11 @@ fi
 if [ "$COMMAND" = "verify" ]; then
   $ACME_BIN --home "$STORAGE_DIR" --renew -d "$DOMAIN" \
     --yes-I-know-dns-manual-mode-enough-go-ahead-please \
+    --force \
     $SERVER_ARG > "$LOG_FILE" 2>&1
 
   # if successful, it mentions "Cert success" or similar.
-  if grep -q "Cert success" "$LOG_FILE" || grep -q "Success" "$LOG_FILE"; then
+  if grep -q "Cert success" "$LOG_FILE" || grep -q "Success" "$LOG_FILE" || grep -q "already verified" "$LOG_FILE"; then
     echo "{\"success\": true}"
   else
     ERROR_MSG=$(tail -n 15 "$LOG_FILE" | tr '\n' ' ' | sed 's/"/\\"/g' | sed 's/\\/\\\\/g' | tr -d '\r')
