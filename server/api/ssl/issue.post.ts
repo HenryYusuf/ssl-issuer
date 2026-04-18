@@ -17,17 +17,17 @@ export default defineEventHandler(async (event) => {
   try {
     // Escape shell argument just to be perfectly safe, although regex filters it already
     const { stdout, stderr } = await execAsync(`bash bin/engine.sh issue "${domain}"`)
-    
+
     // Engine script prints JSON to standard output.
     const result = JSON.parse(stdout)
     if (!result.success) {
-       throw createError({
-         statusCode: 500,
-         statusMessage: result.error || 'Unknown error occurred.',
-         data: result.details
-       })
+      throw createError({
+        statusCode: 500,
+        statusMessage: result.error || 'Unknown error occurred.',
+        data: result.details
+      })
     }
-    
+
     return result
 
   } catch (error: any) {

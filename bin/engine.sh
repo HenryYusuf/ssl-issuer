@@ -40,8 +40,8 @@ if [ "$COMMAND" = "issue" ]; then
     echo "{\"success\": true, \"already_verified\": true}"
   else
     # Error getting challenge
-    ERROR_MSG=$(tail -n 15 "$LOG_FILE" | tr '\n' ' ' | sed 's/"/\\"/g' | sed 's/\\/\\\\/g' | tr -d '\r')
-    echo "{\"success\": false, \"error\": \"Failed to retrieve DNS challenge.\", \"details\": \"$ERROR_MSG\"}"
+    ERROR_MSG=$(tail -n 15 "$LOG_FILE" | jq -Rs .)
+    echo "{\"success\": false, \"error\": \"Failed to retrieve DNS challenge.\", \"details\": $ERROR_MSG}"
   fi
   rm -f "$LOG_FILE"
   exit 0
@@ -57,8 +57,8 @@ if [ "$COMMAND" = "verify" ]; then
   if grep -q "Cert success" "$LOG_FILE" || grep -q "Success" "$LOG_FILE" || grep -q "already verified" "$LOG_FILE"; then
     echo "{\"success\": true}"
   else
-    ERROR_MSG=$(tail -n 15 "$LOG_FILE" | tr '\n' ' ' | sed 's/"/\\"/g' | sed 's/\\/\\\\/g' | tr -d '\r')
-    echo "{\"success\": false, \"error\": \"Verification failed.\", \"details\": \"$ERROR_MSG\"}"
+    ERROR_MSG=$(tail -n 15 "$LOG_FILE" | jq -Rs .)
+    echo "{\"success\": false, \"error\": \"Verification failed.\", \"details\": $ERROR_MSG}"
   fi
   rm -f "$LOG_FILE"
   exit 0
@@ -82,12 +82,12 @@ if [ "$COMMAND" = "show" ]; then
   CA_FILE="$CERT_DIR/ca.cer"
   FULL_FILE="$CERT_DIR/fullchain.cer"
 
-  # Convert newline to \n for JSON
+  # Safely read file content as JSON string
   read_file_to_json() {
     if [ -f "$1" ]; then
-      awk 1 ORS='\\n' "$1" | sed 's/\\n$//'
+      jq -Rs . "$1"
     else
-      echo ""
+      echo '""'
     fi
   }
 
@@ -96,7 +96,7 @@ if [ "$COMMAND" = "show" ]; then
   CA_STR=$(read_file_to_json "$CA_FILE")
   FULL_STR=$(read_file_to_json "$FULL_FILE")
 
-  echo "{\"success\": true, \"cert\": \"$CERT_STR\", \"key\": \"$KEY_STR\", \"ca\": \"$CA_STR\", \"fullchain\": \"$FULL_STR\"}"
+  echo "{\"success\": true, \"cert\": $CERT_STR, \"key\": $KEY_STR, \"ca\": $CA_STR, \"fullchain\": $FULL_STR}"
   exit 0
 fi
 

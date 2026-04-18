@@ -18,12 +18,12 @@ export default defineEventHandler(async (event) => {
     // 1. Run Verification
     const verifyCmd = await execAsync(`bash bin/engine.sh verify "${domain}"`)
     const verifyResult = JSON.parse(verifyCmd.stdout)
-    
+
     if (!verifyResult.success) {
       throw createError({
-         statusCode: 400,
-         statusMessage: verifyResult.error || 'Verification failed.',
-         data: verifyResult.details
+        statusCode: 400,
+        statusMessage: verifyResult.error || 'Verification failed.',
+        data: verifyResult.details
       })
     }
 
@@ -33,8 +33,8 @@ export default defineEventHandler(async (event) => {
 
     if (!showResult.success) {
       throw createError({
-         statusCode: 500,
-         statusMessage: showResult.error || 'Failed to fetch generated certificates.'
+        statusCode: 500,
+        statusMessage: showResult.error || 'Failed to fetch generated certificates.'
       })
     }
 
