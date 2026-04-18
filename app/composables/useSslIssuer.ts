@@ -1,22 +1,23 @@
 import { ref } from 'vue'
+import type { IssueResult, ShowResult } from '~/../server/types/ssl'
 
-export const useSslIssuer = () => {
+export function useSslIssuer() {
   const toast = useToast()
-  
+
   const step = ref(1)
   const loading = ref(false)
   const domain = ref('')
-  
+
   const challengeData = ref({
     challenge_domain: '',
-    txt_value: ''
+    txt_value: '',
   })
-  
+
   const certData = ref({
     cert: '',
     key: '',
     ca: '',
-    fullchain: ''
+    fullchain: '',
   })
 
   const reset = () => {
@@ -25,64 +26,69 @@ export const useSslIssuer = () => {
     challengeData.value = { challenge_domain: '', txt_value: '' }
     certData.value = { cert: '', key: '', ca: '', fullchain: '' }
   }
-  
-  const requestIssue = async () => {
-    if (!domain.value) return
-    loading.value = true
-    try {
-      const data = await $fetch('/api/ssl/issue', {
-        method: 'POST',
-        body: { domain: domain.value }
-      })
-      
-      if (data.already_verified) {
-        toast.add({
-          title: 'Already Verified',
-          description: 'Domain is already verified. Fetching certificates...',
-          color: 'success'
-        })
-        await verifyChallenge()
-        return
-      }
-  
-      challengeData.value = {
-        challenge_domain: data.challenge_domain,
-        txt_value: data.txt_value
-      }
-      step.value = 2
-    } catch (err: any) {
-      toast.add({
-        title: 'Error',
-        description: err.response?.data?.statusMessage || 'An error occurred during issuance.',
-        color: 'error'
-      })
-    } finally {
-      loading.value = false
-    }
-  }
-  
+
   const verifyChallenge = async () => {
     loading.value = true
     try {
-      const data = await $fetch('/api/ssl/verify', {
+      const data = await $fetch<ShowResult>('/api/ssl/verify', {
         method: 'POST',
-        body: { domain: domain.value }
+        body: { domain: domain.value },
       })
-      
+
       certData.value = {
         cert: data.cert,
         key: data.key,
         ca: data.ca,
-        fullchain: data.fullchain
+        fullchain: data.fullchain,
       }
       step.value = 3
-    } catch (err: any) {
+    }
+    catch (err: any) {
       toast.add({
         title: 'Verification Failed',
         description: err.response?.data?.statusMessage || 'Failed to verify DNS challenge. Ensure propagation has reached Let\'s Encrypt.',
-        color: 'error'
+        color: 'error',
       })
-    } finally {
+    }
+    finally {
+      loading.value = false
+    }
+  }
+
+  const requestIssue = async () => {
+    if (!domain.value)
+      return
+    loading.value = true
+    try {
+      const data = await $fetch<IssueResult>('/api/ssl/issue', {
+        method: 'POST',
+        body: { domain: domain.value },
+      })
+
+      if (data.already_verified) {
+        toast.add({
+          title: 'Already Verified',
+          description: 'Domain is already verified. Fetching certificates...',
+          color: 'success',
+        })
+        await verifyChallenge()
+        return
+      }
+
+      challengeData.value = {
+        challenge_domain: data.challenge_domain || '',
+        txt_value: data.txt_value || '',
+      }
+      step.value = 2
+    }
+    catch (err: any) {
+      toast.add({
+        title: 'Error',
+        description: err.response?.data?.statusMessage || 'An error occurred during issuance.',
+        color: 'error',
+      })
+    }
+    finally {
       loading.value = false
     }
   }
@@ -93,12 +99,13 @@ export const useSslIssuer = () => {
       toast.add({
         title: 'Copied!',
         description: 'Copied to clipboard.',
-        color: 'success'
+        color: 'success',
       })
-    } catch (err) {
+    }
+    catch {
       toast.add({
         title: 'Failed to copy',
-        color: 'error'
+        color: 'error',
       })
     }
   }
@@ -112,6 +119,6 @@ export const useSslIssuer = () => {
     requestIssue,
     verifyChallenge,
     copyToClipboard,
-    reset
+    reset,
   }
 }

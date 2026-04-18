@@ -9,8 +9,8 @@ defineProps<{
 }>()
 
 const emit = defineEmits<{
-  'reset': []
-  'copy': [text: string]
+  reset: []
+  copy: [text: string]
 }>()
 </script>
 
@@ -19,7 +19,9 @@ const emit = defineEmits<{
     <div class="bg-emerald-900/20 border border-emerald-500/30 rounded-lg p-4 mb-6">
       <div class="flex items-center">
         <UIcon name="i-heroicons-check-circle" class="h-6 w-6 text-emerald-400" />
-        <h3 class="ml-3 text-sm font-medium text-emerald-300">Certificate Issued Successfully</h3>
+        <h3 class="ml-3 text-sm font-medium text-emerald-300">
+          Certificate Issued Successfully
+        </h3>
       </div>
     </div>
 
@@ -28,8 +30,8 @@ const emit = defineEmits<{
       <div class="bg-neutral-800/40 border border-neutral-700 rounded-lg flex flex-col h-48">
         <div class="px-4 py-3 border-b border-neutral-700 flex justify-between items-center bg-neutral-800/80 rounded-t-lg">
           <span class="text-sm font-medium text-neutral-300">Certificate (CRT)</span>
-          <button @click="emit('copy', certData.cert)" class="text-neutral-400 hover:text-white text-xs flex items-center transition-colors">
-            <UIcon name="i-heroicons-clipboard" class="h-4 w-4 mr-1"/> Copy
+          <button class="text-neutral-400 hover:text-white text-xs flex items-center transition-colors" @click="emit('copy', certData.cert)">
+            <UIcon name="i-heroicons-clipboard" class="h-4 w-4 mr-1" /> Copy
           </button>
         </div>
         <div class="p-4 overflow-auto flex-1 font-mono text-xs text-emerald-500/80 whitespace-pre">
@@ -41,8 +43,8 @@ const emit = defineEmits<{
       <div class="bg-neutral-800/40 border border-neutral-700 rounded-lg flex flex-col h-48">
         <div class="px-4 py-3 border-b border-neutral-700 flex justify-between items-center bg-neutral-800/80 rounded-t-lg">
           <span class="text-sm font-medium text-neutral-300">Private Key</span>
-          <button @click="emit('copy', certData.key)" class="text-neutral-400 hover:text-white text-xs flex items-center transition-colors">
-            <UIcon name="i-heroicons-clipboard" class="h-4 w-4 mr-1"/> Copy
+          <button class="text-neutral-400 hover:text-white text-xs flex items-center transition-colors" @click="emit('copy', certData.key)">
+            <UIcon name="i-heroicons-clipboard" class="h-4 w-4 mr-1" /> Copy
           </button>
         </div>
         <div class="p-4 overflow-auto flex-1 font-mono text-xs text-pink-500/80 whitespace-pre">
@@ -54,21 +56,21 @@ const emit = defineEmits<{
       <div class="bg-neutral-800/40 border border-neutral-700 rounded-lg flex flex-col h-48">
         <div class="px-4 py-3 border-b border-neutral-700 flex justify-between items-center bg-neutral-800/80 rounded-t-lg">
           <span class="text-sm font-medium text-neutral-300">Full Chain (Nginx)</span>
-          <button @click="emit('copy', certData.fullchain)" class="text-neutral-400 hover:text-white text-xs flex items-center transition-colors">
-            <UIcon name="i-heroicons-clipboard" class="h-4 w-4 mr-1"/> Copy
+          <button class="text-neutral-400 hover:text-white text-xs flex items-center transition-colors" @click="emit('copy', certData.fullchain)">
+            <UIcon name="i-heroicons-clipboard" class="h-4 w-4 mr-1" /> Copy
           </button>
         </div>
         <div class="p-4 overflow-auto flex-1 font-mono text-xs text-blue-500/80 whitespace-pre">
           {{ certData.fullchain }}
         </div>
       </div>
-      
+
       <!-- CA Block -->
       <div class="bg-neutral-800/40 border border-neutral-700 rounded-lg flex flex-col h-48">
         <div class="px-4 py-3 border-b border-neutral-700 flex justify-between items-center bg-neutral-800/80 rounded-t-lg">
           <span class="text-sm font-medium text-neutral-300">Intermediate CA</span>
-          <button @click="emit('copy', certData.ca)" class="text-neutral-400 hover:text-white text-xs flex items-center transition-colors">
-            <UIcon name="i-heroicons-clipboard" class="h-4 w-4 mr-1"/> Copy
+          <button class="text-neutral-400 hover:text-white text-xs flex items-center transition-colors" @click="emit('copy', certData.ca)">
+            <UIcon name="i-heroicons-clipboard" class="h-4 w-4 mr-1" /> Copy
           </button>
         </div>
         <div class="p-4 overflow-auto flex-1 font-mono text-xs text-neutral-500/80 whitespace-pre">
@@ -78,7 +80,7 @@ const emit = defineEmits<{
     </div>
 
     <div class="pt-4 text-center">
-      <button @click="emit('reset')" class="text-sm text-emerald-400 hover:text-emerald-300 transition-colors font-medium">
+      <button class="text-sm text-emerald-400 hover:text-emerald-300 transition-colors font-medium" @click="emit('reset')">
         Issue Another Certificate
       </button>
     </div>
