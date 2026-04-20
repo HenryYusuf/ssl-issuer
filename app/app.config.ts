@@ -8,6 +8,13 @@ export default defineAppConfig({
         description: 'mt-1 text-xs text-text-dim font-mono',
         icon: 'shrink-0 w-5 h-5 text-accent',
         close: 'p-0 text-text-dim hover:text-text-bright transition-colors',
+        progress: 'absolute inset-x-0 bottom-0 h-1',
+      }
+    },
+    progress: {
+      slots: {
+        indicator: '!bg-accent',
+        base: '!bg-transparent'
       }
     }
   }
