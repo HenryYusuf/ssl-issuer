@@ -22,6 +22,14 @@ LOG_FILE="/tmp/acme_${DOMAIN}_$$.log"
 SERVER_ARG="--server letsencrypt"
 
 if [ "$COMMAND" = "issue" ]; then
+  # Check if a valid cert already exists to avoid re-issuing (unless it's expired)
+  CHECK_DIR="$STORAGE_DIR/${DOMAIN}_ecc"
+  [ ! -d "$CHECK_DIR" ] && CHECK_DIR="$STORAGE_DIR/$DOMAIN"
+  if [ -f "$CHECK_DIR/$DOMAIN.cer" ] && openssl x509 -checkend 0 -noout -in "$CHECK_DIR/$DOMAIN.cer" > /dev/null 2>&1; then
+    echo "{\"success\": true, \"already_verified\": true, \"msg\": \"Valid certificate already exists\"}"
+    exit 0
+  fi
+
   # run acme.sh manually
   # Added --force to allow re-issuing even if a valid cert exists locally.
   $ACME_BIN --home "$STORAGE_DIR" --issue -d "$DOMAIN" --dns \
@@ -48,6 +56,14 @@ if [ "$COMMAND" = "issue" ]; then
 fi
 
 if [ "$COMMAND" = "verify" ]; then
+  # If we already have a valid cert, no need to verify/renew
+  CHECK_DIR="$STORAGE_DIR/${DOMAIN}_ecc"
+  [ ! -d "$CHECK_DIR" ] && CHECK_DIR="$STORAGE_DIR/$DOMAIN"
+  if [ -f "$CHECK_DIR/$DOMAIN.cer" ] && openssl x509 -checkend 0 -noout -in "$CHECK_DIR/$DOMAIN.cer" > /dev/null 2>&1; then
+    echo "{\"success\": true, \"msg\": \"Valid certificate already exists\"}"
+    exit 0
+  fi
+
   $ACME_BIN --home "$STORAGE_DIR" --renew -d "$DOMAIN" \
     --yes-I-know-dns-manual-mode-enough-go-ahead-please \
     --force \
