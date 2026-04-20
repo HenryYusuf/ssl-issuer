@@ -1,5 +1,6 @@
-import { ref } from 'vue'
 import type { IssueResult, ShowResult } from '~/../server/types/ssl'
+import type { CertData, ChallengeData } from '~/types'
+import { ref } from 'vue'
 
 export function useSslIssuer() {
   const toast = useToast()
@@ -8,12 +9,12 @@ export function useSslIssuer() {
   const loading = ref(false)
   const domain = ref('')
 
-  const challengeData = ref({
+  const challengeData = ref<ChallengeData>({
     challenge_domain: '',
     txt_value: '',
   })
 
-  const certData = ref({
+  const certData = ref<CertData>({
     cert: '',
     key: '',
     ca: '',

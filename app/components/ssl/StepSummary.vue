@@ -18,7 +18,7 @@ const emit = defineEmits<{
   <div class="space-y-6">
     <div class="relative pl-4 border-l-2 border-accent mb-8">
       <h3 class="text-sm font-bold font-display tracking-widest uppercase text-text-bright flex items-center">
-        Certificate_Issued <span class="animate-blink inline-block w-2 bg-accent h-4 ml-2 align-bottom"></span>
+        Certificate_Issued <span class="animate-blink inline-block w-2 bg-accent h-4 ml-2 align-bottom" />
       </h3>
       <div class="mt-2 text-sm text-text-dim font-mono">
         Your DNS-01 SSL certificate has been generated and signed successfully.
@@ -27,7 +27,6 @@ const emit = defineEmits<{
 
     <!-- The Thin Grid for Keys -->
     <div class="bg-border p-[1.5px] grid grid-cols-1 md:grid-cols-2 gap-[1.5px]">
-      
       <!-- Cert Block -->
       <div class="bg-bg flex flex-col h-48 relative overflow-hidden group">
         <div class="px-4 py-2 border-b border-border flex justify-between items-center bg-bg-raised">
@@ -114,4 +113,3 @@ const emit = defineEmits<{
   border-radius: 0px;
 }
 </style>
-

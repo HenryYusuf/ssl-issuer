@@ -19,7 +19,7 @@ const {
       <UCard
         :ui="{
           root: 'bg-card/80 backdrop-blur-[20px] rounded-none md:rounded-sm overflow-visible',
-          body: 'p-8 sm:p-10'
+          body: 'p-8 sm:p-10',
         }"
       >
         <div class="mb-10 text-left">
@@ -27,7 +27,7 @@ const {
             SSL<span class="text-accent" style="text-shadow: 0 0 40px var(--accent);">_</span>ISSUER
           </h1>
           <p class="text-sm font-mono text-text-dim">
-            Local DNS challenge manager. <span class="animate-blink inline-block w-2 bg-text-bright h-4 ml-1 align-bottom"></span>
+            Local DNS challenge manager. <span class="animate-blink inline-block w-2 bg-text-bright h-4 ml-1 align-bottom" />
           </p>
         </div>
 
@@ -75,7 +75,6 @@ const {
     </div>
   </UContainer>
 </template>
-
 
 <style scoped>
 .fade-enter-active,

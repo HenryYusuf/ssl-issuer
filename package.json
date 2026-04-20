@@ -8,7 +8,9 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "lint": "eslint . --fix"
+    "lint": "eslint . --fix",
+    "test": "vitest",
+    "prepare": "npx simple-git-hooks"
   },
   "dependencies": {
     "@nuxt/ui": "4.6.1",
@@ -22,6 +24,15 @@
     "@tailwindcss/vite": "^4.2.2",
     "@types/node": "^22.13.4",
     "eslint": "^9.16.0",
-    "tailwindcss": "^4.2.2"
+    "lint-staged": "^16.4.0",
+    "simple-git-hooks": "^2.13.1",
+    "tailwindcss": "^4.2.2",
+    "vitest": "^4.1.4"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm i --frozen-lockfile --ignore-scripts --offline && npx lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
   }
 }

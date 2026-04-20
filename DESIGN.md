@@ -47,7 +47,7 @@ To port this system to a new application:
 1.  **Extract CSS Variables:** Copy the `:root` and `.light` definitions from `app/assets/css/main.css`.
 2.  **Global Reset:** Ensure `box-sizing: border-box` and monospace-first font stacking.
 3.  **Noise Utility:** Add the `.noise-overlay` class to the root layout component.
-4.  **Component Logic:** 
+4.  **Component Logic:**
     - Use `computed` properties (in Vue/Nuxt) or `useEffect` (in React) to manage the `.light` class on the `html` element for theme switching.
     - Standardize animations using the `cubic-bezier(0.22, 1, 0.36, 1)` easing for all "Slide-Up" entrance effects.
 

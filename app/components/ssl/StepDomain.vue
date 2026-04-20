@@ -21,7 +21,7 @@ const localDomain = computed({
       <template #label="{ label }">
         <span class="text-accent">]</span> {{ label }}
       </template>
-      
+
       <UInput
         v-model="localDomain"
         type="text"
@@ -43,11 +43,10 @@ const localDomain = computed({
     >
       <template #loading>
         <span class="flex items-center text-bg opacity-80">
-          [ Processing<span class="animate-blink inline-block w-2 bg-bg h-4 ml-2 align-bottom"></span> ]
+          [ Processing<span class="animate-blink inline-block w-2 bg-bg h-4 ml-2 align-bottom" /> ]
         </span>
       </template>
       Initialize Challenge
     </UButton>
   </div>
 </template>
-
