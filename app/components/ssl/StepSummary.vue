@@ -32,9 +32,9 @@ const emit = defineEmits<{
       <div class="bg-bg flex flex-col h-48 relative overflow-hidden group">
         <div class="px-4 py-2 border-b border-border flex justify-between items-center bg-bg-raised">
           <span class="text-[10px] font-bold font-display uppercase tracking-widest text-text-dim group-hover:text-text-bright transition-colors">Certificate (CRT)</span>
-          <button class="text-text-dim hover:text-accent transition-colors flex items-center" title="Copy CRT" @click="emit('copy', certData.cert)">
-            <UIcon name="i-heroicons-clipboard" class="h-4 w-4" />
-          </button>
+          <UTooltip text="Copy CRT">
+            <UButton variant="ghost" color="neutral" icon="i-heroicons-clipboard" size="xs" @click="emit('copy', certData.cert)" />
+          </UTooltip>
         </div>
         <div class="p-4 overflow-auto flex-1 font-mono text-[11px] text-text-bright/70 whitespace-pre selection:bg-accent/30 custom-scrollbar">
           {{ certData.cert }}
@@ -45,9 +45,9 @@ const emit = defineEmits<{
       <div class="bg-bg flex flex-col h-48 relative overflow-hidden group">
         <div class="px-4 py-2 border-b border-border flex justify-between items-center bg-bg-raised">
           <span class="text-[10px] font-bold font-display uppercase tracking-widest text-text-dim group-hover:text-text-bright transition-colors">Private Key</span>
-          <button class="text-text-dim hover:text-accent transition-colors flex items-center" title="Copy Private Key" @click="emit('copy', certData.key)">
-            <UIcon name="i-heroicons-clipboard" class="h-4 w-4" />
-          </button>
+          <UTooltip text="Copy Private Key">
+            <UButton variant="ghost" color="neutral" icon="i-heroicons-clipboard" size="xs" @click="emit('copy', certData.key)" />
+          </UTooltip>
         </div>
         <div class="p-4 overflow-auto flex-1 font-mono text-[11px] text-text-bright/70 whitespace-pre selection:bg-accent/30 custom-scrollbar">
           {{ certData.key }}
@@ -58,9 +58,9 @@ const emit = defineEmits<{
       <div class="bg-bg flex flex-col h-48 relative overflow-hidden group">
         <div class="px-4 py-2 border-b border-border flex justify-between items-center bg-bg-raised">
           <span class="text-[10px] font-bold font-display uppercase tracking-widest text-text-dim group-hover:text-text-bright transition-colors">Full Chain (Nginx)</span>
-          <button class="text-text-dim hover:text-accent transition-colors flex items-center" title="Copy Full Chain" @click="emit('copy', certData.fullchain)">
-            <UIcon name="i-heroicons-clipboard" class="h-4 w-4" />
-          </button>
+          <UTooltip text="Copy Full Chain">
+            <UButton variant="ghost" color="neutral" icon="i-heroicons-clipboard" size="xs" @click="emit('copy', certData.fullchain)" />
+          </UTooltip>
         </div>
         <div class="p-4 overflow-auto flex-1 font-mono text-[11px] text-text-bright/70 whitespace-pre selection:bg-accent/30 custom-scrollbar">
           {{ certData.fullchain }}
@@ -71,9 +71,9 @@ const emit = defineEmits<{
       <div class="bg-bg flex flex-col h-48 relative overflow-hidden group">
         <div class="px-4 py-2 border-b border-border flex justify-between items-center bg-bg-raised">
           <span class="text-[10px] font-bold font-display uppercase tracking-widest text-text-dim group-hover:text-text-bright transition-colors">Intermediate CA</span>
-          <button class="text-text-dim hover:text-accent transition-colors flex items-center" title="Copy CA" @click="emit('copy', certData.ca)">
-            <UIcon name="i-heroicons-clipboard" class="h-4 w-4" />
-          </button>
+          <UTooltip text="Copy CA">
+            <UButton variant="ghost" color="neutral" icon="i-heroicons-clipboard" size="xs" @click="emit('copy', certData.ca)" />
+          </UTooltip>
         </div>
         <div class="p-4 overflow-auto flex-1 font-mono text-[11px] text-text-bright/70 whitespace-pre selection:bg-accent/30 custom-scrollbar">
           {{ certData.ca }}
@@ -82,9 +82,17 @@ const emit = defineEmits<{
     </div>
 
     <div class="pt-6 text-center">
-      <button class="inline-flex items-center text-xs font-bold font-display uppercase tracking-widest text-text-dim hover:text-accent transition-colors pb-1 border-b border-transparent hover:border-accent" @click="emit('reset')">
-        <span class="text-accent mr-2">_</span> Issue Another Certificate
-      </button>
+      <UButton
+        variant="link"
+        color="primary"
+        class="font-display uppercase tracking-widest text-xs"
+        @click="emit('reset')"
+      >
+        <template #leading>
+          <span class="text-accent underline-none">_</span>
+        </template>
+        Issue Another Certificate
+      </UButton>
     </div>
   </div>
 </template>
@@ -106,3 +114,4 @@ const emit = defineEmits<{
   border-radius: 0px;
 }
 </style>
+

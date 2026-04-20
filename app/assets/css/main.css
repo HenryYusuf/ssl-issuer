@@ -6,9 +6,17 @@
   --bg-raised: #12181a;
   --bg-card: #1c2426;
   --accent: #38b6ff;
+  --accent-glow: rgba(56, 182, 255, 0.4);
   --border: #2a3436;
   --text-bright: #f0f8fa;
   --text-dim: #8aa4ac;
+
+  /* Nuxt UI 4 Semantic Mapping */
+  --ui-primary: var(--accent);
+  --ui-bg: var(--bg);
+  --ui-border: var(--border);
+  --ui-radius: 0.125rem;
+  /* 2px */
 }
 
 .light {
@@ -16,22 +24,47 @@
   --bg-raised: #ede8de;
   --bg-card: #e8e2d8;
   --accent: #005fab;
+  --accent-glow: rgba(0, 95, 171, 0.2);
   --border: #c8c0b0;
   --text-bright: #0a0a0a;
   --text-dim: #5a5248;
+
+  --ui-primary: var(--accent);
+  --ui-bg: var(--bg);
+  --ui-border: var(--border);
 }
 
 @theme {
-  --color-bg: var(--bg);
-  --color-bg-raised: var(--bg-raised);
-  --color-bg-card: var(--bg-card);
+  --color-main: var(--bg);
+  --color-raised: var(--bg-raised);
+  --color-card: var(--bg-card);
   --color-accent: var(--accent);
   --color-border: var(--border);
   --color-text-bright: var(--text-bright);
   --color-text-dim: var(--text-dim);
+
+
   --font-display: 'Syne', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
   --font-sans: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+
+  /* Global Precision Radius */
+  --radius-xs: 0.125rem;
+  --radius-sm: 0.125rem;
+  --radius-md: 0.25rem;
+  --radius-lg: 0.375rem;
+  --radius-xl: 0.5rem;
+}
+
+/* "The Thin Grid" Utility */
+.thin-grid {
+  display: grid;
+  background-color: var(--border);
+  gap: 1.5px;
+}
+
+.thin-grid>* {
+  background-color: var(--bg);
 }
 
 .noise-overlay::after {
@@ -50,6 +83,7 @@
     opacity: 0;
     transform: translateY(24px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -61,8 +95,15 @@
 }
 
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
 }
 
 .animate-blink {

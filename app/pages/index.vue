@@ -13,10 +13,10 @@ const {
 </script>
 
 <template>
-  <div class="min-h-screen flex text-center flex-col items-center justify-center p-6 sm:p-12 bg-transparent text-text-dim">
+  <UContainer class="min-h-screen flex text-center flex-col items-center justify-center p-6 sm:p-12 bg-transparent text-text-dim">
     <div class="w-full max-w-2xl text-left animate-slide-up">
       <!-- Main Glass Card -->
-      <div class="bg-bg-card/80 backdrop-blur-[20px] border border-border mt-12 rounded-none md:rounded-sm">
+      <div class="bg-card/80 backdrop-blur-[20px] border border-border mt-12 rounded-none md:rounded-sm">
         <div class="p-8 sm:p-10">
           <div class="mb-10">
             <h1 class="text-4xl sm:text-5xl font-extrabold font-display text-text-bright tracking-tight mb-2">
@@ -29,16 +29,17 @@ const {
 
           <!-- Wizard Progress - The "Thin Grid" -->
           <div class="flex items-center space-x-0 mb-10 bg-border p-[1.5px] gap-[1.5px] font-mono text-[10px] tracking-widest uppercase">
-            <div class="flex-1 py-2 px-3 text-center transition-colors" :class="[step >= 1 ? 'bg-bg text-text-bright border-b border-accent' : 'bg-bg-raised text-text-dim border-b border-transparent']">
+            <div class="flex-1 py-2 px-3 text-center transition-colors" :class="[step >= 1 ? 'bg-main text-text-bright border-b border-accent' : 'bg-raised text-text-dim border-b border-transparent']">
               01/ Domain
             </div>
-            <div class="flex-1 py-2 px-3 text-center transition-colors" :class="[step >= 2 ? 'bg-bg text-text-bright border-b border-accent' : 'bg-bg-raised text-text-dim border-b border-transparent']">
+            <div class="flex-1 py-2 px-3 text-center transition-colors" :class="[step >= 2 ? 'bg-main text-text-bright border-b border-accent' : 'bg-raised text-text-dim border-b border-transparent']">
               02/ Challenge
             </div>
-            <div class="flex-1 py-2 px-3 text-center transition-colors" :class="[step === 3 ? 'bg-bg text-text-bright border-b border-accent' : 'bg-bg-raised text-text-dim border-b border-transparent']">
+            <div class="flex-1 py-2 px-3 text-center transition-colors" :class="[step === 3 ? 'bg-main text-text-bright border-b border-accent' : 'bg-raised text-text-dim border-b border-transparent']">
               03/ Export
             </div>
           </div>
+
 
           <!-- Steps with Transition -->
           <Transition name="fade" mode="out-in">
@@ -70,7 +71,7 @@ const {
         </div>
       </div>
     </div>
-  </div>
+  </UContainer>
 </template>
 
 <style scoped>

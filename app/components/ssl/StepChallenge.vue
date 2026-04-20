@@ -42,9 +42,15 @@ const emit = defineEmits<{
             {{ challengeData.challenge_domain }}
           </p>
         </div>
-        <button class="relative z-10 text-text-dim hover:text-accent transition-colors" title="Copy Hostname" @click="emit('copy', challengeData.challenge_domain)">
-          <UIcon name="i-heroicons-clipboard-document" class="h-5 w-5" />
-        </button>
+        <UTooltip text="Copy Hostname">
+          <UButton
+            variant="ghost"
+            icon="i-heroicons-clipboard-document"
+            color="neutral"
+            class="relative z-10"
+            @click="emit('copy', challengeData.challenge_domain)"
+          />
+        </UTooltip>
       </div>
 
       <div class="bg-bg-card p-4 flex justify-between items-center group relative overflow-hidden">
@@ -55,25 +61,42 @@ const emit = defineEmits<{
             {{ challengeData.txt_value }}
           </p>
         </div>
-        <button class="relative z-10 text-text-dim hover:text-accent transition-colors flex-shrink-0" title="Copy Value" @click="emit('copy', challengeData.txt_value)">
-          <UIcon name="i-heroicons-clipboard-document" class="h-5 w-5" />
-        </button>
+        <UTooltip text="Copy Value">
+          <UButton
+            variant="ghost"
+            icon="i-heroicons-clipboard-document"
+            color="neutral"
+            class="relative z-10"
+            @click="emit('copy', challengeData.txt_value)"
+          />
+        </UTooltip>
       </div>
     </div>
 
     <div class="flex space-x-4 mt-8">
-      <button :disabled="loading" class="flex-1 py-3 px-4 border border-border text-text-dim hover:text-text-bright hover:border-text-bright transition-colors disabled:opacity-50 text-sm font-bold font-display tracking-widest uppercase rounded-none" @click="emit('cancel')">
+      <UButton
+        variant="ghost"
+        color="neutral"
+        class="flex-1 justify-center"
+        :disabled="loading"
+        @click="emit('cancel')"
+      >
         Cancel
-      </button>
-      <button
-        :disabled="loading" class="flex-1 py-3 px-4 rounded-[2px] text-sm font-bold font-display tracking-wide text-bg bg-accent hover:brightness-125 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-bg focus:ring-accent transition-all disabled:opacity-50 disabled:cursor-not-allowed uppercase"
+      </UButton>
+      <UButton
+        color="primary"
+        class="flex-1 justify-center"
+        :loading="loading"
         @click="emit('verify')"
       >
-        <span v-if="!loading">Verify & Issue</span>
-        <span v-else class="flex items-center justify-center text-bg opacity-80">
-          [ Verifying<span class="animate-blink inline-block w-2 bg-bg h-4 ml-2 align-bottom"></span> ]
-        </span>
-      </button>
+        <template #loading>
+          <span class="flex items-center justify-center text-bg opacity-80">
+            [ Verifying<span class="animate-blink inline-block w-2 bg-bg h-4 ml-2 align-bottom"></span> ]
+          </span>
+        </template>
+        Verify & Issue
+      </UButton>
     </div>
   </div>
 </template>
+
