@@ -11,7 +11,8 @@ export default defineAppConfig({
       variants: {
         color: {
           primary: 'bg-accent text-main hover:shadow-[0_0_20px_var(--accent-glow)]',
-          neutral: 'bg-raised text-text-bright border border-border hover:border-text-dim'
+          neutral: 'bg-raised text-text-bright border border-border hover:border-text-dim',
+          none: ''
         },
         variant: {
           solid: '',

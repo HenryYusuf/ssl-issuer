@@ -84,7 +84,7 @@ const emit = defineEmits<{
     <div class="pt-6 text-center">
       <UButton
         variant="link"
-        color="primary"
+        color="none"
         class="font-display uppercase tracking-widest text-xs"
         @click="emit('reset')"
       >
