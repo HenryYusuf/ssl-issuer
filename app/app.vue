@@ -1,16 +1,23 @@
 <script setup>
 useHead({
+  link: [
+    { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+    { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'anonymous' },
+    { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@700;800&display=swap' }
+  ],
   bodyAttrs: {
-    class: 'bg-neutral-950 m-0 p-0 overflow-x-hidden',
+    class: 'm-0 p-0 overflow-x-hidden font-mono bg-bg text-text-dim selection:bg-accent/30',
   },
 })
 </script>
 
 <template>
   <UApp>
-    <div class="h-screen bg-neutral-950 text-neutral-200 selection:bg-emerald-500/30 font-sans debug-screens transition-colors overflow-hidden">
-      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-900/20 via-neutral-950 to-neutral-950 z-[-1]" />
-      <div class="absolute inset-0 bg-neutral-950 [mask-image:linear-gradient(to_bottom,transparent,black)] pointer-events-none" />
+    <div class="min-h-screen noise-overlay overflow-hidden">
+      <!-- Glow effect backing -->
+      <div class="fixed inset-0 pointer-events-none flex justify-center items-center z-[-1]">
+        <div class="w-[800px] h-[800px] rounded-full bg-accent opacity-[0.03] blur-[150px]" />
+      </div>
 
       <NuxtLayout>
         <NuxtPage />

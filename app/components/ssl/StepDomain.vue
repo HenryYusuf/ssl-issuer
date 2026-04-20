@@ -18,17 +18,17 @@ const localDomain = computed({
 <template>
   <div class="space-y-6">
     <div>
-      <label for="domain" class="block text-sm font-medium text-neutral-300">Target Domain</label>
-      <div class="mt-2 relative rounded-md shadow-sm">
+      <label for="domain" class="block text-xs uppercase tracking-wider font-mono text-text-dim mb-2"><span class="text-accent">]</span> Target Domain</label>
+      <div class="relative">
         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-          <UIcon name="i-heroicons-globe-alt" class="text-neutral-500 h-5 w-5" />
+          <UIcon name="i-heroicons-globe-alt" class="text-text-dim h-5 w-5" />
         </div>
         <input
           id="domain"
           v-model="localDomain"
           type="text"
           name="domain"
-          class="focus:ring-emerald-500 focus:border-emerald-500 block w-full pl-10 sm:text-sm border-neutral-700 bg-neutral-800/50 text-white rounded-lg py-3 transition-colors"
+          class="block w-full pl-10 border border-border bg-bg-card text-text-bright rounded-none py-3 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors font-mono text-sm placeholder:text-text-dim/50"
           placeholder="sub.example.com"
           :disabled="loading"
           @keyup.enter="emit('submit')"
@@ -37,12 +37,12 @@ const localDomain = computed({
     </div>
     <button
       :disabled="loading || !localDomain"
-      class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-bold text-neutral-900 bg-emerald-400 hover:bg-emerald-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-neutral-900 focus:ring-emerald-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+      class="w-full flex justify-center py-3 px-4 rounded-[2px] text-sm font-bold font-display tracking-wide text-bg bg-accent hover:brightness-125 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-bg focus:ring-accent transition-all disabled:opacity-50 disabled:cursor-not-allowed uppercase"
       @click="emit('submit')"
     >
       <span v-if="!loading">Initialize Challenge</span>
-      <span v-else class="flex items-center">
-        <UIcon name="i-heroicons-arrow-path" class="animate-spin -ml-1 mr-2 h-5 w-5" /> Processing...
+      <span v-else class="flex items-center text-bg opacity-80">
+        [ Processing<span class="animate-blink inline-block w-2 bg-bg h-4 ml-2 align-bottom"></span> ]
       </span>
     </button>
   </div>

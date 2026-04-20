@@ -13,30 +13,31 @@ const {
 </script>
 
 <template>
-  <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-transparent">
-    <div class="max-w-2xl w-full relative">
-      <!-- Decorator Glowing blob -->
-      <div class="absolute -top-10 -right-10 w-48 h-48 bg-emerald-500/20 rounded-full blur-3xl mix-blend-screen pointer-events-none" />
-
+  <div class="min-h-screen flex text-center flex-col items-center justify-center p-6 sm:p-12 bg-transparent text-text-dim">
+    <div class="w-full max-w-2xl text-left animate-slide-up">
       <!-- Main Glass Card -->
-      <div class="bg-neutral-900/40 backdrop-blur-xl border border-neutral-800 shadow-2xl rounded-2xl overflow-hidden transition-all duration-500">
-        <div class="p-8">
-          <div class="mb-8">
-            <h1 class="text-3xl font-extrabold text-white tracking-tight">
-              SSL <span class="text-emerald-400">Issuer</span>
+      <div class="bg-bg-card/80 backdrop-blur-[20px] border border-border mt-12 rounded-none md:rounded-sm">
+        <div class="p-8 sm:p-10">
+          <div class="mb-10">
+            <h1 class="text-4xl sm:text-5xl font-extrabold font-display text-text-bright tracking-tight mb-2">
+              SSL<span class="text-accent" style="text-shadow: 0 0 40px var(--accent);">_</span>ISSUER
             </h1>
-            <p class="text-sm text-neutral-400 mt-2">
-              Generate and manage manual DNS SSL certificates locally.
+            <p class="text-sm font-mono text-text-dim">
+              Local DNS challenge manager. <span class="animate-blink inline-block w-2 bg-text-bright h-4 ml-1 align-bottom"></span>
             </p>
           </div>
 
-          <!-- Wizard Progress -->
-          <div class="flex items-center space-x-4 mb-8">
-            <span class="text-sm font-medium" :class="[step >= 1 ? 'text-emerald-400' : 'text-neutral-500']">01. Domain</span>
-            <div class="h-px w-8" :class="[step >= 2 ? 'bg-emerald-400/50' : 'bg-neutral-800']" />
-            <span class="text-sm font-medium" :class="[step >= 2 ? 'text-emerald-400' : 'text-neutral-500']">02. Challenge</span>
-            <div class="h-px w-8" :class="[step >= 3 ? 'bg-emerald-400/50' : 'bg-neutral-800']" />
-            <span class="text-sm font-medium" :class="[step === 3 ? 'text-emerald-400' : 'text-neutral-500']">03. Export</span>
+          <!-- Wizard Progress - The "Thin Grid" -->
+          <div class="flex items-center space-x-0 mb-10 bg-border p-[1.5px] gap-[1.5px] font-mono text-[10px] tracking-widest uppercase">
+            <div class="flex-1 py-2 px-3 text-center transition-colors" :class="[step >= 1 ? 'bg-bg text-text-bright border-b border-accent' : 'bg-bg-raised text-text-dim border-b border-transparent']">
+              01/ Domain
+            </div>
+            <div class="flex-1 py-2 px-3 text-center transition-colors" :class="[step >= 2 ? 'bg-bg text-text-bright border-b border-accent' : 'bg-bg-raised text-text-dim border-b border-transparent']">
+              02/ Challenge
+            </div>
+            <div class="flex-1 py-2 px-3 text-center transition-colors" :class="[step === 3 ? 'bg-bg text-text-bright border-b border-accent' : 'bg-bg-raised text-text-dim border-b border-transparent']">
+              03/ Export
+            </div>
           </div>
 
           <!-- Steps with Transition -->
