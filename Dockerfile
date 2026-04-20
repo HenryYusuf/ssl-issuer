@@ -38,7 +38,9 @@ COPY --from=build /src/package.json ./package.json
 
 # Copy scripts and necessary folders
 COPY --from=build /src/bin ./bin
-COPY --from=build /src/storage ./storage
+# Create storage directory for the volume mount
+RUN mkdir -p storage
+
 
 # Ensure scripts are executable
 RUN chmod +x bin/engine.sh && \
