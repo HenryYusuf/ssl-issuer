@@ -2,7 +2,6 @@
   "name": "ssl-issuer",
   "type": "module",
   "private": true,
-  "packageManager": "pnpm@10.32.1",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
@@ -10,6 +9,7 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint . --fix",
+    "typecheck": "nuxt typecheck",
     "test": "vitest",
     "prepare": "npx simple-git-hooks"
   },
